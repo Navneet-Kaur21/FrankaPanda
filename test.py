@@ -33,7 +33,8 @@ class teleop_pub(Thread):
     def callback(self):
         while(True):
             if self.stop_command==False and self.count==0:
-                print(self.key_pressed)
+                if self.key_pressed == 120:
+                    print('--x')
                 self.count+=1
 
 if __name__ == '__main__':
