@@ -5,11 +5,13 @@ from std_msgs.msg import String
 from std_msgs.msg import Int16
 from pynput.keyboard import Key, Listener
 import sys
+from robot import panda_class
 from threading import *
 
 class teleop_pub(Thread):
 
     def __init__(self):
+        self.panda = panda_class()
         self.stop_command = False
         self.key_pressed = None
         self.count = 0
