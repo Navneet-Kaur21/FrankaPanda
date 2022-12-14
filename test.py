@@ -7,6 +7,7 @@ from pynput.keyboard import Key, Listener
 import sys
 from robot import panda_class
 from threading import *
+import rospy
 
 class teleop_pub(Thread):
 
@@ -15,6 +16,7 @@ class teleop_pub(Thread):
         self.stop_command = False
         self.key_pressed = None
         self.count = 0
+        rospy.spin()
 
     def on_press(self,key):
         self.stop_command = False
@@ -36,12 +38,12 @@ class teleop_pub(Thread):
         while(True):
             if self.stop_command==False and self.count==0:
                 if self.key_pressed == 120:
-                    print('--x')
+                    self.panda.move_cart_relative([0.01,0,0],[0,0,0])
                 self.count+=1
 
 if __name__ == '__main__':
     teleop_pub = teleop_pub()
-    t1 = Thread(target=teleop_pub.thread_teleop)
-    t1.start()
-    t2 = Thread(target=teleop_pub.callback)
-    t2.start()
+    # t1 = Thread(target=teleop_pub.thread_teleop)
+    # t1.start()
+    # t2 = Thread(target=teleop_pub.callback)
+    # t2.start()
